@@ -22,7 +22,7 @@ import javax.inject.Inject;
  * @author Yuri Shmakov
  */
 @InjectViewState
-public class SignInPresenter extends BasePresenter<SignInView> {
+public final class SignInPresenter extends BasePresenter<SignInView> {
 
 	@Inject
 	GithubService mGithubService;
@@ -53,7 +53,7 @@ public class SignInPresenter extends BasePresenter<SignInView> {
 
 		getViewState().startSignIn();
 
-		String credentials = String.format("%s:%s", email, password);
+		String credentials = String.format("%1$s:%2$s", email, password);
 
 		final String token = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
