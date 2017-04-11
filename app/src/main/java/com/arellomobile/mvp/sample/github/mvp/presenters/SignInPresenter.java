@@ -13,7 +13,6 @@ import com.arellomobile.mvp.sample.github.mvp.views.SignInView;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -58,9 +57,9 @@ public class SignInPresenter extends BasePresenter<SignInView> {
 
 		final String token = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
-		Disposable disposable = mGithubService.signIn(token)
+		mGithubService.signIn(token)
 				.doOnNext(user -> AuthUtils.setToken(token))
-				.compose(RxUtils.applySchedulers())
+				.compose(RxUtils.applyUIDefaults(this))
 				.subscribe(user -> {
 					getViewState().finishSignIn();
 					getViewState().successSignIn();
@@ -69,7 +68,6 @@ public class SignInPresenter extends BasePresenter<SignInView> {
 					getViewState().failedSignIn(exception.getMessage());
 				});
 
-		unsubscribeOnDestroy(disposable);
 	}
 
 	public void onErrorCancel() {

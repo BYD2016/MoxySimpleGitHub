@@ -1,7 +1,5 @@
 package com.arellomobile.mvp.sample.github.ui.activities;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,18 +27,22 @@ import com.arellomobile.mvp.sample.github.ui.adapters.RepositoriesAdapter;
 import com.arellomobile.mvp.sample.github.ui.fragments.DetailsFragment;
 import com.arellomobile.mvp.sample.github.ui.views.FrameSwipeRefreshLayout;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends MvpAppCompatActivity implements
+public final class HomeActivity extends MvpAppCompatActivity implements
 		SignOutView,
 		RepositoriesView,
 		HomeView,
 		RepositoriesAdapter.OnScrollToBottomListener {
 	@InjectPresenter
 	SignOutPresenter mSignOutPresenter;
+
 	@InjectPresenter
 	RepositoriesPresenter mRepositoriesPresenter;
+
 	@InjectPresenter
 	HomePresenter mHomePresenter;
 

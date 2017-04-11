@@ -1,9 +1,9 @@
 package com.arellomobile.mvp.sample.github.mvp.presenters;
 
-import com.arellomobile.mvp.sample.github.mvp.common.AuthUtils;
-import com.arellomobile.mvp.sample.github.mvp.views.SignOutView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.arellomobile.mvp.sample.github.mvp.common.AuthUtils;
+import com.arellomobile.mvp.sample.github.mvp.views.SignOutView;
 
 /**
  * Date: 18.01.2016
@@ -12,8 +12,8 @@ import com.arellomobile.mvp.MvpPresenter;
  * @author Yuri Shmakov
  */
 @InjectViewState
-public class SignOutPresenter extends MvpPresenter<SignOutView> {
-	public void signOut() {
+public final class SignOutPresenter extends MvpPresenter<SignOutView> {
+    public void signOut() {
 		AuthUtils.setToken("");
 
 		getViewState().signOut();

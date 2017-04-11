@@ -1,9 +1,9 @@
 package com.arellomobile.mvp.sample.github.mvp.presenters;
 
-import com.arellomobile.mvp.sample.github.mvp.models.Repository;
-import com.arellomobile.mvp.sample.github.mvp.views.HomeView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.arellomobile.mvp.sample.github.mvp.models.Repository;
+import com.arellomobile.mvp.sample.github.mvp.views.HomeView;
 
 /**
  * Date: 27.01.2016
@@ -12,7 +12,7 @@ import com.arellomobile.mvp.MvpPresenter;
  * @author Yuri Shmakov
  */
 @InjectViewState
-public class HomePresenter extends MvpPresenter<HomeView> {
+public final class HomePresenter extends MvpPresenter<HomeView> {
 	public void onRepositorySelection(int position, Repository repository) {
 		getViewState().showDetailsContainer();
 

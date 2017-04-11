@@ -1,7 +1,5 @@
 package com.arellomobile.mvp.sample.github.mvp.presenters;
 
-import java.util.List;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.sample.github.app.GithubApi;
 import com.arellomobile.mvp.sample.github.app.GithubApp;
@@ -10,11 +8,9 @@ import com.arellomobile.mvp.sample.github.mvp.GithubService;
 import com.arellomobile.mvp.sample.github.mvp.models.Repository;
 import com.arellomobile.mvp.sample.github.mvp.views.RepositoriesView;
 
+import java.util.List;
+
 import javax.inject.Inject;
-
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-
 
 /**
  * Date: 22.01.2016
@@ -23,7 +19,7 @@ import io.reactivex.disposables.Disposable;
  * @author Yuri Shmakov
  */
 @InjectViewState
-public class RepositoriesPresenter extends BasePresenter<RepositoriesView> {
+public final class RepositoriesPresenter extends BasePresenter<RepositoriesView> {
 
 	@Inject
 	GithubService mGithubService;
@@ -59,10 +55,8 @@ public class RepositoriesPresenter extends BasePresenter<RepositoriesView> {
 
 		showProgress(isPageLoading, isRefreshing);
 
-		final Observable<List<Repository>> observable = mGithubService.getUserRepos("JakeWharton", page, GithubApi.PAGE_SIZE);
-
-		Disposable disposable = observable
-				.compose(RxUtils.applySchedulers())
+		mGithubService.getUserRepos("JakeWharton", page, GithubApi.PAGE_SIZE)
+				.compose(RxUtils.applyUIDefaults(this))
 				.subscribe(repositories -> {
 					onLoadingFinish(isPageLoading, isRefreshing);
 					onLoadingSuccess(isPageLoading, repositories);
@@ -70,7 +64,6 @@ public class RepositoriesPresenter extends BasePresenter<RepositoriesView> {
 					onLoadingFinish(isPageLoading, isRefreshing);
 					onLoadingFailed(error);
 				});
-		unsubscribeOnDestroy(disposable);
 	}
 
 	private void onLoadingFinish(boolean isPageLoading, boolean isRefreshing) {

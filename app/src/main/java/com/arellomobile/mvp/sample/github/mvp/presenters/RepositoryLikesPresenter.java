@@ -1,17 +1,15 @@
 package com.arellomobile.mvp.sample.github.mvp.presenters;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.sample.github.common.RxUtils;
 import com.arellomobile.mvp.sample.github.mvp.views.RepositoryLikesView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+
 
 
 /**
@@ -46,14 +44,13 @@ public class RepositoryLikesPresenter extends BasePresenter<RepositoryLikesView>
 			subscriber.onNext(!mLikedIds.contains(id));
 		});
 
-		Disposable disposable = toggleObservable
-				.compose(RxUtils.applySchedulers())
+		toggleObservable
+				.compose(RxUtils.applyUIDefaults(this))
 				.subscribe(isLiked -> {
 					onComplete(id, isLiked);
 				}, throwable -> {
 					onFail(id);
 				});
-		unsubscribeOnDestroy(disposable);
 	}
 
 	private void onComplete(int id, Boolean isLiked) {
